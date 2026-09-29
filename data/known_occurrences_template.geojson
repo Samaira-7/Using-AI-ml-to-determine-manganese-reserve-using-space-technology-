@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "_comment": "TEMPLATE FILE - the single point below is a PLACEHOLDER, not a real occurrence. Replace it with real records from GSI Bhukosh (bhukosh.gsi.gov.in), the GSI Metallogenic/Mineral Atlas of India, or Indian Bureau of Mines district resource / National Mineral Inventory reports. Rename to known_occurrences.geojson once populated.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "PLACEHOLDER - replace with a real GSI/IBM occurrence",
+        "state": "example",
+        "source": "template"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [85.3, 21.9]
+      }
+    }
+  ]
+}

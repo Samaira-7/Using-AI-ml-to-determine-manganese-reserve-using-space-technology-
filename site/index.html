@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M-MES — Manganese Mineral Exploration System</title>
+<meta name="description" content="Surface prospectivity mapping for manganese exploration, built on Sentinel-2 band-ratio analysis. SIH26009.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="#top" class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">M&#8209;MES</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#pipeline">Pipeline</a>
+      <a href="#bandratio">Band ratios</a>
+      <a href="#tracks">Two tracks</a>
+      <a href="#honesty">Data honesty</a>
+      <a href="app.html" class="nav-cta">Open the app</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="ps-tag">SIH26009 &middot; Ministry of Steel &middot; MOIL Limited</p>
+        <h1>Reading manganese <br>off the surface of a planet<br>from 700&nbsp;km up.</h1>
+        <p class="hero-sub">
+          M&#8209;MES turns raw Sentinel&#8209;2 reflectance into a ranked
+          field&#8209;validation map &mdash; using the same band&#8209;ratio
+          logic geologists have carried into the field with handheld
+          spectrometers for forty years, run instead across an entire
+          mining belt at once.
+        </p>
+        <div class="hero-actions">
+          <a href="app.html" class="btn btn-primary">Launch the dashboard</a>
+          <a href="#bandratio" class="btn btn-ghost">See how detection works</a>
+        </div>
+        <p class="hero-disclaimer">
+          Surface prospectivity screening &mdash; not a reserve estimate.
+          <a href="#honesty">Read the scope note &darr;</a>
+        </p>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 480 520" class="scan-svg">
+          <defs>
+            <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#C9A961" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#8B4A2B" stop-opacity="0"/>
+            </linearGradient>
+            <radialGradient id="terrain" cx="50%" cy="40%" r="70%">
+              <stop offset="0%" stop-color="#2B3A2E"/>
+              <stop offset="100%" stop-color="#181B14"/>
+            </radialGradient>
+          </defs>
+          <rect x="0" y="0" width="480" height="520" fill="url(#terrain)" rx="4"/>
+          <!-- terrain contour lines -->
+          <g stroke="#3E4C3E" stroke-width="1" fill="none" opacity="0.6">
+            <path d="M0,120 C100,90 180,150 260,110 C340,75 420,130 480,100"/>
+            <path d="M0,200 C90,170 190,230 270,190 C350,155 430,205 480,180"/>
+            <path d="M0,290 C110,260 200,320 280,280 C360,245 420,290 480,270"/>
+            <path d="M0,370 C100,345 210,400 300,360 C370,330 430,370 480,355"/>
+          </g>
+          <!-- prospectivity target points -->
+          <g class="targets">
+            <circle cx="150" cy="160" r="5" class="t-high"/>
+            <circle cx="210" cy="240" r="4" class="t-med"/>
+            <circle cx="300" cy="150" r="6" class="t-high"/>
+            <circle cx="340" cy="260" r="3.5" class="t-low"/>
+            <circle cx="120" cy="330" r="4" class="t-med"/>
+            <circle cx="260" cy="330" r="5.5" class="t-high"/>
+            <circle cx="380" cy="200" r="3.5" class="t-low"/>
+            <circle cx="180" cy="410" r="4.5" class="t-med"/>
+          </g>
+          <!-- scan line -->
+          <rect x="0" y="0" width="480" height="90" fill="url(#scanGrad)" class="scanline"/>
+          <line x1="0" y1="90" x2="480" y2="90" stroke="#C9A961" stroke-width="1.5" class="scanline-edge"/>
+          <!-- frame ticks -->
+          <g stroke="#C9A961" stroke-width="1" opacity="0.5">
+            <line x1="0" y1="0" x2="14" y2="0"/><line x1="0" y1="0" x2="0" y2="14"/>
+            <line x1="466" y1="0" x2="480" y2="0"/><line x1="480" y1="0" x2="480" y2="14"/>
+            <line x1="0" y1="520" x2="14" y2="520"/><line x1="0" y1="506" x2="0" y2="520"/>
+            <line x1="466" y1="520" x2="480" y2="520"/><line x1="480" y1="506" x2="480" y2="520"/>
+          </g>
+        </svg>
+        <div class="hero-visual-caption">
+          <span class="mono">MORI &middot; HAI &middot; FMI</span>
+          <span>Balaghat belt, synthetic preview</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TRUST STRIP ===================== -->
+  <section class="trust-strip">
+    <div class="wrap trust-row">
+      <div><span class="trust-num">30m</span><span class="trust-label">Landsat / Sentinel-2 resolution</span></div>
+      <div><span class="trust-num">14</span><span class="trust-label">engineered feature bands</span></div>
+      <div><span class="trust-num">~50%</span><span class="trust-label">of India's Mn demand is imported</span></div>
+      <div><span class="trust-num">10</span><span class="trust-label">MOIL mines across MP &amp; Maharashtra</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== PIPELINE ===================== -->
+  <section id="pipeline" class="section">
+    <div class="wrap">
+      <p class="eyebrow-line"><span></span>How the system is built</p>
+      <h2>One pipeline, five real steps.</h2>
+      <p class="section-lede">
+        No step here is a black box. Each stage below maps to a file in
+        the repository you can open and read.
+      </p>
+
+      <div class="pipeline-flow">
+        <div class="pf-step">
+          <span class="pf-index">01</span>
+          <h3>Acquire</h3>
+          <p>Cloud-masked Landsat 8/9 and Sentinel-2 surface reflectance pulled live via Google Earth Engine.</p>
+          <code class="mono pf-file">fetch_landsat_gee.py</code>
+        </div>
+        <div class="pf-arrow" aria-hidden="true">&rarr;</div>
+        <div class="pf-step">
+          <span class="pf-index">02</span>
+          <h3>Co-register</h3>
+          <p>Every raster — different sensors, different native resolutions — resampled onto one shared grid.</p>
+          <code class="mono pf-file">geo_utils.py</code>
+        </div>
+        <div class="pf-arrow" aria-hidden="true">&rarr;</div>
+        <div class="pf-step">
+          <span class="pf-index">03</span>
+          <h3>Engineer features</h3>
+          <p>Band ratios (MORI, HAI, FMI, NDVI) plus SRTM terrain — elevation, slope, aspect.</p>
+          <code class="mono pf-file">spectral_indices.py</code>
+        </div>
+        <div class="pf-arrow" aria-hidden="true">&rarr;</div>
+        <div class="pf-step">
+          <span class="pf-index">04</span>
+          <h3>Model</h3>
+          <p>Spatially-blocked cross-validation — never random splits — against known occurrence points.</p>
+          <code class="mono pf-file">train_model.py</code>
+        </div>
+        <div class="pf-arrow" aria-hidden="true">&rarr;</div>
+        <div class="pf-step">
+          <span class="pf-index">05</span>
+          <h3>Screen</h3>
+          <p>Ranked prospectivity surface, delivered as a field-validation priority map, not a verdict.</p>
+          <code class="mono pf-file">app.py</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BAND RATIO EXPLAINER ===================== -->
+  <section id="bandratio" class="section section-dark">
+    <div class="wrap bandratio-grid">
+      <div class="br-copy">
+        <p class="eyebrow-line light"><span></span>The actual science</p>
+        <h2>What "detecting manganese from space" really means</h2>
+        <p>
+          No satellite carries a sensor that reads out "manganese: yes/no."
+          What Landsat and Sentinel-2 actually measure is reflected
+          sunlight, in a handful of wavelength bands, off the top few
+          millimetres of the ground. Manganese and iron oxides absorb and
+          reflect that light in a distinctive pattern — darker in the
+          blue, brighter in the red, with specific SWIR behaviour where
+          hydroxyl-bearing alteration minerals sit alongside them.
+        </p>
+        <p>
+          Band ratios exploit that pattern. Dividing one band by another
+          cancels out illumination and topographic shading effects that
+          would otherwise swamp the mineral signal, leaving a number that
+          tracks composition instead of just "how sunny was it that day."
+          That's the entire trick — and it's forty-year-old remote
+          sensing science (Sabins, 1999), not something new to this
+          project.
+        </p>
+        <div class="br-callout">
+          <strong>What this can and can't tell you</strong>
+          <p>It can flag surface pixels whose spectral signature resembles known manganese-associated alteration. It cannot see through soil, vegetation or rock cover, and it says nothing about depth, grade, or tonnage. Every output is a screening layer for field geologists — never a substitute for them.</p>
+        </div>
+      </div>
+
+      <div class="br-formulas">
+        <div class="formula-card">
+          <div class="formula-head">
+            <span class="formula-name">MORI</span>
+            <span class="formula-full">Manganese Oxide Ratio Index</span>
+          </div>
+          <div class="formula-eq mono">Red / Blue</div>
+          <p>Manganese and iron oxides absorb blue light strongly and reflect more in red — this ratio pulls that contrast forward.</p>
+        </div>
+        <div class="formula-card">
+          <div class="formula-head">
+            <span class="formula-name">HAI</span>
+            <span class="formula-full">Hydroxyl Alteration Index</span>
+          </div>
+          <div class="formula-eq mono">SWIR1 / SWIR2</div>
+          <p>Flags clay and hydroxyl-bearing alteration zones — the weathering signature that often sits alongside supergene-enriched ore.</p>
+        </div>
+        <div class="formula-card">
+          <div class="formula-head">
+            <span class="formula-name">FMI</span>
+            <span class="formula-full">Ferrous Mineral Index</span>
+          </div>
+          <div class="formula-eq mono">SWIR1 / NIR</div>
+          <p>Picks out Fe&sup2;&#8314; signatures in the mafic host rocks tied to gondite and BIF-hosted manganese sequences.</p>
+        </div>
+        <div class="formula-card formula-card-neg">
+          <div class="formula-head">
+            <span class="formula-name">NDVI</span>
+            <span class="formula-full">Vegetation Index &mdash; used as a mask</span>
+          </div>
+          <div class="formula-eq mono">(NIR&minus;Red) / (NIR+Red)</div>
+          <p>Not a mineral signal at all. Thick vegetation hides the ground entirely, so NDVI is used to down-weight or exclude covered pixels rather than to find ore.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INTERACTIVE CALCULATOR ===================== -->
+  <section id="calculator" class="section">
+    <div class="wrap">
+      <p class="eyebrow-line"><span></span>Try the math yourself</p>
+      <h2>Run a pixel through the same formulas</h2>
+      <p class="section-lede">
+        Move the reflectance sliders below — the ratios update live, using
+        the exact functions defined in <code class="mono">spectral_indices.py</code>.
+        These are illustrative single-pixel values, not a live satellite feed.
+      </p>
+
+      <div class="calc-panel">
+        <div class="calc-sliders">
+          <label class="calc-slider">
+            <span>Blue <span class="mono val" id="val-blue">0.09</span></span>
+            <input type="range" min="0" max="0.5" step="0.005" value="0.09" id="s-blue">
+          </label>
+          <label class="calc-slider">
+            <span>Red <span class="mono val" id="val-red">0.14</span></span>
+            <input type="range" min="0" max="0.5" step="0.005" value="0.14" id="s-red">
+          </label>
+          <label class="calc-slider">
+            <span>NIR <span class="mono val" id="val-nir">0.22</span></span>
+            <input type="range" min="0" max="0.6" step="0.005" value="0.22" id="s-nir">
+          </label>
+          <label class="calc-slider">
+            <span>SWIR1 <span class="mono val" id="val-swir1">0.28</span></span>
+            <input type="range" min="0" max="0.6" step="0.005" value="0.28" id="s-swir1">
+          </label>
+          <label class="calc-slider">
+            <span>SWIR2 <span class="mono val" id="val-swir2">0.19</span></span>
+            <input type="range" min="0" max="0.6" step="0.005" value="0.19" id="s-swir2">
+          </label>
+        </div>
+
+        <div class="calc-results">
+          <div class="calc-result">
+            <span class="cr-label">MORI</span>
+            <span class="cr-value mono" id="out-mori">1.56</span>
+            <div class="cr-bar"><div class="cr-fill" id="bar-mori"></div></div>
+          </div>
+          <div class="calc-result">
+            <span class="cr-label">HAI</span>
+            <span class="cr-value mono" id="out-hai">1.47</span>
+            <div class="cr-bar"><div class="cr-fill" id="bar-hai"></div></div>
+          </div>
+          <div class="calc-result">
+            <span class="cr-label">FMI</span>
+            <span class="cr-value mono" id="out-fmi">1.27</span>
+            <div class="cr-bar"><div class="cr-fill" id="bar-fmi"></div></div>
+          </div>
+          <div class="calc-result">
+            <span class="cr-label">NDVI</span>
+            <span class="cr-value mono" id="out-ndvi">0.22</span>
+            <div class="cr-bar"><div class="cr-fill" id="bar-ndvi"></div></div>
+          </div>
+          <div class="calc-verdict" id="calc-verdict">
+            Composite score sits in the <strong>moderate</strong> screening range — worth a look, not a headline.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TWO TRACKS ===================== -->
+  <section id="tracks" class="section section-alt">
+    <div class="wrap">
+      <p class="eyebrow-line"><span></span>SIH26009 has two halves</p>
+      <h2>Reserves and shortfalls, not just one demo map</h2>
+      <p class="section-lede">
+        Most teams over-invest in the reserve heatmap because it's the
+        flashier demo. The problem statement asks for both.
+      </p>
+
+      <div class="tracks-grid">
+        <article class="track-card">
+          <span class="track-letter">A</span>
+          <h3>Identify reserves</h3>
+          <p>Map manganese-favourable ground using satellite spectral indices, terrain context, and known-occurrence training points.</p>
+          <ul>
+            <li>Sentinel-2 + Landsat band ratios</li>
+            <li>SRTM slope / aspect / elevation</li>
+            <li>Spatially cross-validated Random Forest / XGBoost</li>
+          </ul>
+        </article>
+        <article class="track-card">
+          <span class="track-letter">B</span>
+          <h3>Predict shortfalls</h3>
+          <p>Forecast production risk at MOIL's mines from real rainfall data and equipment performance.</p>
+          <ul>
+            <li>Real CHIRPS rainfall via Earth Engine</li>
+            <li>Real MOIL / IBM Yearbook production history</li>
+            <li>Clearly-labelled simulated downtime, never presented as real</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DATA HONESTY ===================== -->
+  <section id="honesty" class="section">
+    <div class="wrap honesty-wrap">
+      <p class="eyebrow-line"><span></span>Before any judge asks</p>
+      <h2>What's real, and what's a stand-in</h2>
+      <p class="section-lede">
+        A single fabricated number destroys trust in every other number on
+        the slide. So every data source here is labelled plainly.
+      </p>
+
+      <div class="honesty-table" role="table">
+        <div class="ht-row ht-head" role="row">
+          <span role="columnheader">Data</span>
+          <span role="columnheader">Status</span>
+          <span role="columnheader">Source</span>
+        </div>
+        <div class="ht-row" role="row"><span>Landsat / Sentinel-2 / SRTM DEM</span><span class="ht-real">Real, live</span><span>Google Earth Engine</span></div>
+        <div class="ht-row" role="row"><span>Rainfall, soil moisture, land surface temp</span><span class="ht-real">Real, live</span><span>CHIRPS / MODIS LST via Earth Engine</span></div>
+        <div class="ht-row" role="row"><span>GSI lithology &amp; occurrence points</span><span class="ht-real">Real, manual</span><span>GSI Bhukosh</span></div>
+        <div class="ht-row" role="row"><span>MOIL production figures</span><span class="ht-real">Real, public</span><span>IBM Yearbook / MOIL annual reports</span></div>
+        <div class="ht-row" role="row"><span>PRISMA hyperspectral</span><span class="ht-roadmap">Roadmap</span><span>Registration pending, ASI</span></div>
+        <div class="ht-row" role="row"><span>Equipment downtime / maintenance logs</span><span class="ht-sim">Simulated</span><span>Poisson-process stand-in, clearly labelled</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ROADMAP ===================== -->
+  <section id="roadmap" class="section section-dark">
+    <div class="wrap">
+      <p class="eyebrow-line light"><span></span>Beyond the 12-hour build</p>
+      <h2>Where this goes next</h2>
+      <div class="roadmap-list">
+        <div class="rm-item">
+          <h4>Near-real-time refresh</h4>
+          <p>Scheduled Earth Engine exports on a cron trigger, so the prospectivity layer updates automatically as new cloud-free scenes become available — genuinely continuous, without pretending any sensor detects minerals instantaneously.</p>
+        </div>
+        <div class="rm-item">
+          <h4>PRISMA hyperspectral integration</h4>
+          <p>239 narrow bands instead of 6-7 broad ones, once registration clears — sharper separation between manganese-oxide and look-alike iron-oxide signatures.</p>
+        </div>
+        <div class="rm-item">
+          <h4>Spatial-CV-backed confidence intervals</h4>
+          <p>Report an uncertainty band on every prospectivity score, not just a point estimate — so field teams know which targets are worth the fuel to reach first.</p>
+        </div>
+        <div class="rm-item">
+          <h4>Expand beyond the MOIL footprint</h4>
+          <p>Extend the same pipeline to other GSI-mapped manganese belts nationally, feeding directly into the National Critical Mineral Mission's exploration push.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section final-cta">
+    <div class="wrap final-cta-inner">
+      <h2>The dashboard is the real deliverable.</h2>
+      <p>Everything above is context for the map. Go look at the map.</p>
+      <a href="app.html" class="btn btn-primary btn-lg">Open M&#8209;MES</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <p>M&#8209;MES &middot; built for SIH26009 &middot; not a certified reserve estimate or operational planning tool.</p>
+    <p class="mono">Ministry of Steel &middot; MOIL Limited</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

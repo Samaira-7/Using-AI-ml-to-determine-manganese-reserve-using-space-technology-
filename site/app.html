@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Run M-MES — the dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .runbook{ max-width:760px; margin:0 auto; padding:100px 32px 120px; }
+  .runbook .eyebrow-line{ justify-content:center; }
+  .runbook h1{ text-align:center; font-size:clamp(2rem,4vw,2.8rem); margin-bottom:14px; }
+  .runbook > p.lede{ text-align:center; color:var(--ink-soft); max-width:56ch; margin:0 auto 48px; }
+  .step-block{
+    background:var(--cream-dim); border:1px solid var(--line); border-radius:8px;
+    padding:26px 28px; margin-bottom:18px;
+  }
+  .step-block h3{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+  .step-num{
+    width:28px; height:28px; border-radius:50%; background:var(--rust); color:var(--cream);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-mono);
+    font-size:0.85rem; flex:0 0 auto;
+  }
+  pre{
+    background:var(--basalt); color:var(--cream); padding:16px 18px; border-radius:6px;
+    overflow-x:auto; font-family:var(--font-mono); font-size:0.85rem; line-height:1.6;
+  }
+  .why-live-note{
+    border-left:3px solid var(--gold); background:rgba(201,169,97,0.08);
+    padding:16px 20px; border-radius:0 6px 6px 0; margin:36px 0; font-size:0.92rem;
+  }
+  .back-link{ display:inline-block; margin-bottom:32px; font-size:0.9rem; color:var(--rust); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="index.html" class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">M&#8209;MES</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Back to overview</a>
+    </nav>
+  </div>
+</header>
+
+<main class="runbook">
+  <p class="eyebrow-line"><span></span>Run it locally</p>
+  <h1>The dashboard runs on your machine, on your Earth Engine account</h1>
+  <p class="lede">
+    M&#8209;MES pulls real satellite imagery through your own registered
+    Google Earth&nbsp;Engine project. That means it can't run inside a
+    static web page — but it takes about five minutes to get live on
+    your laptop.
+  </p>
+
+  <div class="why-live-note">
+    <strong>Why not just embed it here?</strong> Earth Engine requires
+    per-user OAuth authentication and a registered Cloud project (free,
+    mandatory since November 2024). There's no way to run that flow
+    inside a hosted static page without asking you to hand over
+    credentials to a third party — so the honest answer is: run it
+    yourself, it's genuinely quick.
+  </div>
+
+  <div class="step-block">
+    <h3><span class="step-num">1</span>Clone and set up the environment</h3>
+    <pre>git clone &lt;your-repo-url&gt;
+cd manganese-prospectivity
+conda env create -f environment.yml
+conda activate manganese-prospectivity</pre>
+  </div>
+
+  <div class="step-block">
+    <h3><span class="step-num">2</span>Register an Earth Engine project (once, free)</h3>
+    <p>Go to <code class="mono">code.earthengine.google.com/register</code>, register a new Cloud project as
+    "Unpaid usage &rarr; noncommercial/research," and copy the project ID.
+    Every teammate needs their own — it's per-account, not shared quota.</p>
+  </div>
+
+  <div class="step-block">
+    <h3><span class="step-num">3</span>Point the scripts at your project</h3>
+    <p>Set <code class="mono">EE_PROJECT</code> in <code class="mono">fetch_landsat_gee.py</code> and <code class="mono">shortfall_model.py</code> to your project ID.</p>
+  </div>
+
+  <div class="step-block">
+    <h3><span class="step-num">4</span>Run the pipeline, then the app</h3>
+    <pre>python src/data_acquisition/fetch_landsat_gee.py
+python src/modeling/train_baseline_rf.py
+streamlit run app/streamlit_app.py</pre>
+    <p style="margin-top:14px; margin-bottom:0;">First run opens a browser window for Earth Engine authentication — one-time per machine.</p>
+  </div>
+
+  <div class="step-block">
+    <h3><span class="step-num">5</span>Run the on-demand AOI tool</h3>
+    <p>The upgraded app includes a "Run on this AOI" panel that calls
+    <code class="mono">gee_feature_pipeline.py</code> live against any bounding box you draw —
+    the closest thing to real-time band-ratio screening this pipeline
+    can honestly offer. See <code class="mono">README.md</code> for the AOI-tool section.</p>
+  </div>
+
+  <a href="index.html" class="back-link">&larr; Back to the overview</a>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <p>M&#8209;MES &middot; built for SIH26009 &middot; not a certified reserve estimate or operational planning tool.</p>
+  </div>
+</footer>
+</body>
+</html>

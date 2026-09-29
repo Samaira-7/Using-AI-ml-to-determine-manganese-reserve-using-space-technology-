@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Local data and generated artifacts
+data/*
+!data/known_occurrences_template.geojson
+models/*
+outputs/*
+
+# Local secrets and Earth Engine credentials
+.env
+credentials.json
+*.pem

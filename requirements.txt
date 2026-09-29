@@ -1,0 +1,16 @@
+numpy
+pandas
+rasterio
+geopandas
+shapely
+scikit-learn
+matplotlib
+folium
+streamlit
+streamlit-folium
+plotly
+earthengine-api
+geemap
+joblib
+seaborn
+xgboost

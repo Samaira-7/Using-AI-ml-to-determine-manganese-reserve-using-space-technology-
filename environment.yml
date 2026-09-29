@@ -1,0 +1,24 @@
+name: manganese-prospectivity
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - gdal
+  - rasterio
+  - geopandas
+  - shapely
+  - scikit-learn
+  - matplotlib
+  - folium
+  - streamlit
+  - plotly
+  - earthengine-api
+  - geemap
+  - joblib
+  - seaborn
+  - xgboost
+  - pip
+  - pip:
+      - streamlit-folium
